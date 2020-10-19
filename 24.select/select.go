@@ -15,17 +15,21 @@ func main() {
 	b := make(chan int)
 	go server1(a)
 	go server2(b)
-	select {
-	case c := <-a:
-		fmt.Println(c) //执行该语句
-		break
-	case d := <-b:
-		fmt.Println(d)
-		break
-		// default: //没有数据则执行此处，防止阻塞
-		// 	fmt.Println("no data")
-		// 	break
+	for {
+		select {
+		case c := <-a:
+			fmt.Println(c) //执行该语句
+			break
+		case d := <-b:
+			fmt.Println(d)
+			break
+		default: //没有数据则执行此处，防止阻塞
+			fmt.Println("no data")
+			break
+		}
+		time.Sleep(100 * time.Millisecond)
 	}
+
 }
 
 func server1(data chan int) {
