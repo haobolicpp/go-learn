@@ -1,9 +1,19 @@
+// 该文件包含如下基础内容
+//- 输出
+//- 编译go、执行go
+//- 变量定义 var :=
+//- 常量定义
+//- 函数
+//- 自定义包及导入
+//- if else for switch关键字
+//- os.Args[] 0是全路径 后面是输入的内容，比如go run hello.go xxx，那么os.Args[1]就是xxx
 package main
 
 import (
 	"fmt"
 	"golearn/rectangle"
 	"math"
+	"os"
 	"unsafe"
 )
 
@@ -30,6 +40,12 @@ func testNameRet() (ret1, ret2 int) {
 func main() {
 	fmt.Println("hello world")
 
+	/*直接执行go文件*/
+	//go run hello.go
+
+	/*编译go文件*/
+	//go build hello.go
+
 	/*变量*/
 	var age int //int型，默认为0
 	fmt.Println("my age default", age)
@@ -48,7 +64,7 @@ func main() {
 		h      int
 	)
 	fmt.Println("my name is", name, "bob age is", bobage, h)
-	//简短声明（没有var、类型）:=
+	//简短声明（没有var、类型）:= go 会自动推断
 	names, anges := "bob_s", 12
 	a, e := 1, 2
 	//a, e := 3, 4
@@ -148,6 +164,18 @@ func main() {
 		fmt.Println("case 5")
 	default:
 		fmt.Print("default")
+	}
+
+	/*输入*/
+	var strInput string
+	fmt.Scanln(&strInput)
+	fmt.Println(strInput)
+
+	/*从main接收参数*/
+	fmt.Println(os.Args[0]) //Args[0]打印的是exe的全路径
+	if len(os.Args) > 1 {
+		arg := os.Args[1]
+		fmt.Println(arg)
 	}
 
 }
